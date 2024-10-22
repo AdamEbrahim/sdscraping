@@ -155,14 +155,20 @@ def getMainImagesAndPrompts():
                 print("case 4")
 
                 metadata = {}
-                diff_metadata = section.findAll('div', attrs={'class': 'flex justify-between gap-3'})
+                diff_metadata = section.findAll('div', attrs={'class': 'mantine-Badge-root mantine-qcxgtg'})
                 for m in diff_metadata:
-                    metadata_name = m.find('div', attrs={'class': 'mantine-Text-root text-nowrap leading-snug mantine-14lhcb9'})
-                    metadata_val = m.find('div', attrs={'class': 'mantine-Text-root leading-snug mantine-ljqvxq'})
-                    if metadata_name is None or metadata_val is None:
+                    # metadata_name = m.find('div', attrs={'class': 'mantine-Text-root text-nowrap leading-snug mantine-14lhcb9'})
+                    # metadata_val = m.find('div', attrs={'class': 'mantine-Text-root leading-snug mantine-ljqvxq'})
+                    metadata_name_and_val = m.find('span')
+                    # metadata_val = m.find('div', attrs={'class': 'mantine-Text-root leading-snug mantine-ljqvxq'})
+                    # if metadata_name is None or metadata_val is None:
+                    #     continue
+                    if metadata_name_and_val is None:
                         continue
 
-                    metadata[metadata_name.get_text()] = metadata_val.get_text()
+                    # metadata[metadata_name.get_text()] = metadata_val.get_text()
+                    metadata_name_and_val = metadata_name_and_val.get_text().split(":")
+                    metadata[metadata_name_and_val[0]] = metadata_name_and_val[1]
 
                 curr_image_data['metadata'] = metadata
 
